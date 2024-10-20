@@ -1,0 +1,12 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./libraries/lex"
+    },
+    {
+      "path": "./libraries/lex-web"
+    }
+  ],
+  "extends": "./tsconfig.base.json"
+}
