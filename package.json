@@ -8,6 +8,7 @@
   "scripts": {
     "build": "nx build react-native-lex-editor",
     "start:web": "nx serve react-native-lex-editor-web",
+    "start:example": "nx start example-1",
     "watch:all": "nx watch --projects=react-native-lex-editor -- nx build react-native-lex-editor",
     "watch:editor": "nx watch --projects=react-native-lex-editor -- nx build react-native-lex-editor --excludeTaskDependencies",
     "test": "echo \"Error: no test specified\" && exit 1"
