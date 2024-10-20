@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    // Module resolution
+    "paths": {
+      "react-native-lex-editor": ["./index"]
+    },
+    "module": "esnext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+
+    // Strictness
+    "strict": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "verbatimModuleSyntax": true,
+
+    // Output settings
+    "declaration": true,
+    "declarationDir": "./lib/types",
+    "outDir": "./lib",
+    "rootDir": "./src",
+
+    // Lib and JSX
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "react",
+
+    // Miscellaneous
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "target": "esnext"
+  },
+  "include": ["."],
+  "exclude": ["lib", "node_modules", "**/*.spec.ts"]
+}
