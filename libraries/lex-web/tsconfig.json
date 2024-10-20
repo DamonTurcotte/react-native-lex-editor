@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "react-native-lex-editor-web": ["./src/main.tsx"]
+    },
+    "composite": true,
+    "jsx": "react-jsx",
+    "allowJs": false,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "outDir": "./lib",
+    "types": [
+      "vite/client",
+      "vitest",
+      "node",
+      "@nx/react/typings/cssmodule.d.ts",
+      "@nx/react/typings/image.d.ts",
+    ]
+  },
+  "files": [],
+  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
+  "extends": "../../tsconfig.base.json"
+}
