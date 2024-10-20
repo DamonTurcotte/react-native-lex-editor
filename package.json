@@ -6,6 +6,10 @@
     "libraries/*"
   ],
   "scripts": {
+    "build": "nx build react-native-lex-editor",
+    "start:web": "nx serve react-native-lex-editor-web",
+    "watch:all": "nx watch --projects=react-native-lex-editor -- nx build react-native-lex-editor",
+    "watch:editor": "nx watch --projects=react-native-lex-editor -- nx build react-native-lex-editor --excludeTaskDependencies",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Damon Turcotte",
