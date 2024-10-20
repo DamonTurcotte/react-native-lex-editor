@@ -1,0 +1,14 @@
+{
+  "name": "example-1",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "expo": "*",
+    "metro-config": "*",
+    "react-native": "*",
+    "react-native-safe-area-context": "*",
+    "react-native-lex-editor": "*",
+    "react-native-svg": "*",
+    "react-native-web": "*"
+  }
+}
