@@ -12,7 +12,9 @@ const App = () => {
           <Text>Resize</Text>
         </Pressable>
       </View>
-      <RichText />
+      <RichText
+        _DEV_={true}
+      />
     </SafeAreaView>
   )
 };
