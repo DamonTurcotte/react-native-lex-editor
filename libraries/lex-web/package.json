@@ -2,5 +2,27 @@
   "name": "react-native-lex-editor-web",
   "version": "0.0.0",
   "main": "lib/htmlString.ts",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@lexical/react": "*",
+    "lexical": "*",
+    "react": "*",
+    "react-dom": "*"
+  },
+  "devDependencies": {
+    "@eslint/js": "*",
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "@vitejs/plugin-react": "*",
+    "@lexical/list": "*",
+    "@lexical/selection": "*",
+    "eslint": "*",
+    "eslint-plugin-react-hooks": "*",
+    "eslint-plugin-react-refresh": "*",
+    "globals": "*",
+    "typescript": "*",
+    "typescript-eslint": "*",
+    "vite": "*",
+    "vite-plugin-singlefile": "*"
+  }
 }
