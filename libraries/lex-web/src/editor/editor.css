@@ -1,0 +1,66 @@
+.editor-container {
+  position: relative;
+  line-height: 1.5;
+  padding: 0.5em;
+}
+
+.editor-input {
+  outline: none;
+}
+
+.editor-placeholder {
+  color: #aaa;
+  font-style: italic;
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  padding: inherit;
+  left: 0;
+  top: 0;
+}
+
+.editor-banner {
+  color: #fff;
+  background-color: darkslategray;
+  margin: 8px 0;
+  padding: 8px;
+  border-left: 4px solid #fff8;
+}
+
+.editor-toolbar {
+  display: flex;
+  gap: 0.5em;
+  padding: 0.5em;
+}
+
+.editor-bold {
+  font-weight: bold;
+}
+
+.editor-italic {
+  font-style: italic;
+}
+
+.editor-underline {
+  text-decoration: underline;
+}
+
+.editor-strikethrough {
+  text-decoration: line-through;
+}
+
+.editor-code {
+  font-family: monospace;
+  background-color: #f0f0f0;
+  padding: 0.2em 0.5em;
+}
+
+.editor-subscript {
+  vertical-align: sub;
+  font-size: 0.8em;
+}
+
+.editor-superscript {
+  vertical-align: super;
+  font-size: 0.8em;
+}
