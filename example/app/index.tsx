@@ -1,12 +1,19 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { RichText } from "react-native-lex-editor";
+import { RichText, useEditorBridge } from "react-native-lex-editor";
+
+const initialState = '{"root": {"children": [{"children": [{"detail": 0,"format": 0,"mode": "normal","style": "","text": "Hello, Lex!","type": "text","version": 1}],"direction": "ltr","format": "","indent": 0,"type": "paragraph","version": 1,"textFormat": 0,"textStyle": ""}],"direction": "ltr","format": "","indent": 0,"type": "root","version": 1}}';
 
 const HomeView = () => {
+  const editor = useEditorBridge({
+    _DEV: true,
+    initialState,
+  });
+
   return (
     <View style={styles.container}>
       <RichText
-        _DEV_={true}
+        editor={editor}
       />
     </View>
   )
