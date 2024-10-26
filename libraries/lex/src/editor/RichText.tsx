@@ -1,41 +1,40 @@
 import React from 'react';
 import {
   WebView,
-  type WebViewMessageEvent,
   type WebViewProps,
 } from 'react-native-webview';
 
 import { htmlString } from 'react-native-lex-editor-web';
+import { type EditorBridge } from './useEditorBridge';
+
 
 export interface RichTextProps extends WebViewProps {
-  _DEV_?: boolean;
+  editor: EditorBridge;
 }
 
+const DEV_SERVER = 'http://10.0.0.219:4200';
+
 export const RichText = ({
-  _DEV_,
+  editor,
   ...props
 }: RichTextProps ): React.JSX.Element => {
-  const webviewRef = React.useRef<WebView>(null);
+  const [initialData] = React.useState(() => ({
+    initialState: editor.initialState,
+  }));
 
-  const onMessage = React.useCallback((event: WebViewMessageEvent) => {
-    const message = JSON.parse(event.nativeEvent.data);
-
-    switch (message.type) {
-      case 'EDITOR_STATE_CHANGE':
-        // TODO: Handle editor state change
-        console.log(JSON.stringify(message, null, 2));
-        break;
-      default:
-        console.error('Unknown message type', message.type);
-    }
-  }, []);
+  const source: WebViewProps['source'] = editor.customSource
+    ? { uri: editor.customSource }
+    : editor._DEV
+    ? { uri: DEV_SERVER }
+    : { html: htmlString };
 
   return (
     <WebView
       {...props}
-      ref={webviewRef}
-      source={props.source ? props.source : _DEV_ ? { uri: 'http://10.0.0.219:4200' } : { html: htmlString }}
-      onMessage={onMessage}
+      ref={editor.webviewRef}
+      injectedJavaScriptObject={initialData}
+      source={source}
+      onMessage={editor._onMessage}
     />
   );
 };
