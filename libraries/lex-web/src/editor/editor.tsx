@@ -1,7 +1,7 @@
 import React from "react";
 import { $getRoot, EditorState, LexicalEditor } from "lexical";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
+import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
@@ -13,6 +13,7 @@ declare global {
   interface Window {
     ReactNativeWebView?: {
       postMessage: (message: string) => void;
+      injectedObjectJson: () => string;
     };
   }
 }
@@ -42,15 +43,18 @@ const onChange = (
 }
 
 export function Editor(): React.JSX.Element {
+  const initialData = window.ReactNativeWebView?.injectedObjectJson() ?? undefined
+
   const initialConfig = {
     namespace: "LexEditor",
     onError,
+    editorState: initialData ? JSON.parse(initialData).initialState : undefined,
   }
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <div className="editor-container">
-        <PlainTextPlugin
+        <RichTextPlugin
           contentEditable={<ContentEditable className="editor-input" />}
           placeholder={
             <div className="editor-placeholder">Start typing...</div>
