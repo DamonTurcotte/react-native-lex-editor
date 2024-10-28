@@ -34,7 +34,7 @@ const onChange = (
       type: "EDITOR_STATE_CHANGE",
       payload: {
         plainText,
-        serializedEditorState: state.toJSON(),
+        editorState: state.toJSON(),
       }
     };
 
