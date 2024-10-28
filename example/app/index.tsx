@@ -8,6 +8,9 @@ const HomeView = () => {
   const editor = useEditorBridge({
     _DEV: true,
     initialState,
+    onChangeState: (state) => {
+      console.log('onChangeState:', state);
+    }
   });
 
   return (
