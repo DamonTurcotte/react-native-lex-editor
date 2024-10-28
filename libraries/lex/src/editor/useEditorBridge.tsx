@@ -16,6 +16,7 @@ export interface EditorBridge {
   customSource?: string;
   _DEV?: boolean;
   sendCommand: (command: Command) => void;
+  onChangeState?: (editorState: string) => void;
   _onMessage: (event: WebViewMessageEvent) => void;
 }
 
@@ -23,6 +24,7 @@ export const useEditorBridge = (options?: {
   initialState?: string | object;
   customSource?: string;
   _DEV?: boolean;
+  onChangeState: (editorState: string) => void;
 }): EditorBridge => {
   const webviewRef = React.useRef<WebView>(null);
 
@@ -37,8 +39,9 @@ export const useEditorBridge = (options?: {
 
     switch (message.type) {
       case 'EDITOR_STATE_CHANGE':
-        // TODO: Handle editor state change
-        console.log(JSON.stringify(message, null, 2));
+        if (options?.onChangeState) {
+          options.onChangeState(message.payload.editorState);
+        }
         break;
       default:
         console.error('Unknown message type', message.type);
