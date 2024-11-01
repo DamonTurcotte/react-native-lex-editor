@@ -4,33 +4,37 @@ import {
   type WebViewMessageEvent,
 } from 'react-native-webview';
 
-export interface Command {
+export type Command = {
   type: string;
-  payload?: any;
+  payload?: any
   id?: string;
 }
 
-export interface EditorBridge {
+export type EditorBridge = {
   webviewRef: React.RefObject<WebView>;
   initialState?: string | object;
   customSource?: string;
-  _DEV?: boolean;
   sendCommand: (command: Command) => void;
   onChangeState?: (editorState: string) => void;
   _onMessage: (event: WebViewMessageEvent) => void;
+  _DEV?: boolean;
 }
 
-export const useEditorBridge = (options?: {
+export const useLexical = (options?: {
   initialState?: string | object;
   customSource?: string;
-  _DEV?: boolean;
   onChangeState: (editorState: string) => void;
+  _DEV?: boolean;
 }): EditorBridge => {
   const webviewRef = React.useRef<WebView>(null);
 
-  const sendCommand = React.useCallback((command: Command) => {
+  const sendCommand = React.useCallback(({ type, payload }: Command) => {
+    // Generate a random id to ensure the command isn't duplicated by the webview
+    const id = Math.random().toString(36).substring(7);
+    const command = { type, payload, id };
+
     if (webviewRef.current) {
-      webviewRef.current.injectJavaScript(`window.ReactNativeWebView.postMessage(${JSON.stringify(command)})`);
+      webviewRef.current.injectJavaScript(`window.postMessage('${JSON.stringify(command)}')`);
     }
   }, []);
 
@@ -43,8 +47,14 @@ export const useEditorBridge = (options?: {
           options.onChangeState(message.payload.editorState);
         }
         break;
+      case 'EDITOR_ERROR':
+        console.error('WebView Error:', message.payload);
+        break;
+      case 'COMMAND_RESPONSE':
+        console.log('WebView Command received:', JSON.stringify(message.payload, null, 2));
+        break;
       default:
-        console.error('Unknown message type', message.type);
+        console.warn('Unknown message type from WebView:', message);
     }
   }, []);
 

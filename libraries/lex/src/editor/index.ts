@@ -1,2 +1,2 @@
-export * from './RichText';
-export * from './useEditorBridge';
+export * from './LexEditor';
+export * from './useLexical';

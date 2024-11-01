@@ -5,7 +5,7 @@ import {
 } from 'react-native-webview';
 
 import { htmlString } from 'react-native-lex-editor-web';
-import { type EditorBridge } from './useEditorBridge';
+import { type EditorBridge } from './useLexical';
 
 
 export interface RichTextProps extends WebViewProps {
@@ -14,7 +14,7 @@ export interface RichTextProps extends WebViewProps {
 
 const DEV_SERVER = 'http://10.0.0.219:4200';
 
-export const RichText = ({
+export const LexEditor = ({
   editor,
   ...props
 }: RichTextProps ): React.JSX.Element => {
