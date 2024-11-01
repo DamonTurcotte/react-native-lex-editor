@@ -9,6 +9,8 @@ import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import "./editor.css";
 
+import { useDebounce } from "../utils/useDebounce";
+
 declare global {
   interface Window {
     ReactNativeWebView?: {
@@ -19,7 +21,12 @@ declare global {
 }
 
 const onError = (error: unknown) => {
-  console.error(error);
+  const message = {
+    type: "EDITOR_ERROR",
+    payload: error instanceof Error ? error.message : String(error),
+  };
+
+  window.ReactNativeWebView?.postMessage(JSON.stringify(message));
 }
 
 const onChange = (
@@ -51,6 +58,24 @@ export function Editor(): React.JSX.Element {
     editorState: initialData ? JSON.parse(initialData).initialState : undefined,
   }
 
+  const debouncedOnChange = useDebounce(onChange, 100);
+
+  React.useEffect(() => {
+    const commandListener = (event: MessageEvent) => {
+      const message = JSON.parse(event.data);
+      window.ReactNativeWebView?.postMessage(JSON.stringify({
+        type: "COMMAND_RESPONSE",
+        payload: message,
+      }));
+    };
+
+    window.onmessage = commandListener;
+
+    return () => {
+      window.onmessage = null;
+    };
+  }, []);
+
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <div className="editor-container">
@@ -62,7 +87,7 @@ export function Editor(): React.JSX.Element {
           ErrorBoundary={LexicalErrorBoundary}
         />
         <HistoryPlugin />
-        <OnChangePlugin onChange={onChange} />
+        <OnChangePlugin onChange={debouncedOnChange} />
       </div>
     </LexicalComposer>
   );
